@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Links Table</title>
+</head>
+<body>
+    <h1>Links Table Generator</h1>
+    <form id="linkForm">
+        <label for="start">Start Position: </label>
+        <input type="number" id="start" name="start" value="1" min="1">
+        <br>
+        <label for="end">End Position: </label>
+        <input type="number" id="end" name="end" value="1" min="1">
+        <br>
+        <button type="button" onclick="displayTable()">Generate Table</button>
+    </form>
+    <p id="rangeMessage"></p>
+    <div id="tableContainer"></div>
+
+    <script>
+        let data = ["syllabus.html","p1.html","p2.html","style.html","email.html","system.html","process.html"];
+        let endRange = data.length;
+
+        document.getElementById('rangeMessage').innerText = `Valid Range: 1-${endRange}`;
+
+        function displayTable() {
+            let start = parseInt(document.getElementById('start').value);
+            let end = parseInt(document.getElementById('end').value);
+            let tableContainer = document.getElementById('tableContainer');
+            tableContainer.innerHTML = '';
+
+            if (start < 1 || end < 1 || start > endRange || end > endRange || start > end) {
+                tableContainer.innerHTML = `<p>Invalid range. Valid range: 1-${endRange}</p>`;
+                return;
+            }
+
+            let table = document.createElement('table');
+            table.border = 1;
+            for (let i = start - 1; i < end; i++) {
+                let row = table.insertRow();
+                let cell = row.insertCell();
+                let link = document.createElement('a');
+                link.href = data[i];
+                link.textContent = data[i];
+                cell.appendChild(link);
+            }
+            tableContainer.appendChild(table);
+        }
+    </script>
+</body>
+</html>
